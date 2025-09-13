@@ -10,31 +10,28 @@ const config: Config = {
   ],
   theme: {
   	extend: {
-  		fontFamily: {
-  			mono: [
-  				'Fira Code"',
-  				'ui-monospace',
-  				'SFMono-Regular',
-  				'Menlo',
-  				'Monaco',
-  				'Consolas',
-  				'Liberation Mono"',
-  				'Courier New"',
-  				'monospace'
-  			],
-  			'jetbrains-mono': [
-  				'JetBrains Mono"',
-  				'Fira Code"',
-  				'ui-monospace',
-  				'SFMono-Regular',
-  				'Menlo',
-  				'Monaco',
-  				'Consolas',
-  				'Liberation Mono"',
-  				'Courier New"',
-  				'monospace'
-  			]
-  		},
+			fontFamily: {
+				mono: [
+					'ui-monospace',
+					'SFMono-Regular',
+					'Menlo',
+					'Monaco',
+					'Consolas',
+					'Liberation Mono',
+					'Courier New',
+					'monospace'
+				],
+				'jetbrains-mono': [
+					'ui-monospace',
+					'SFMono-Regular',
+					'Menlo',
+					'Monaco',
+					'Consolas',
+					'Liberation Mono',
+					'Courier New',
+					'monospace'
+				]
+			},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

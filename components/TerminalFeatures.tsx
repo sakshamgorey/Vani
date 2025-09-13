@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FileUpload } from './FileUpload'
 import { TerminalWindow } from './TerminalWindow'
@@ -30,6 +30,11 @@ interface AnalysisResult {
 
 export const TerminalFeatures: React.FC = () => {
   const [files, setFiles] = useState<File[]>([])
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const handleFilesChange = (newFiles: File[]) => {
     setFiles(newFiles)
@@ -114,7 +119,7 @@ export const TerminalFeatures: React.FC = () => {
             <div className="text-center space-y-4">
               <motion.h1 
                 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground  text-visible"
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={isMounted ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
               >
@@ -132,7 +137,7 @@ export const TerminalFeatures: React.FC = () => {
               
               <motion.p 
                 className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed text-visible px-4"
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={isMounted ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
               >
@@ -146,7 +151,7 @@ export const TerminalFeatures: React.FC = () => {
               {/* Command Prompt */}
               <motion.div 
                 className="text-foreground text-lg font-mono text-visible"
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={isMounted ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
               >
@@ -155,7 +160,7 @@ export const TerminalFeatures: React.FC = () => {
 
               {/* File Upload Area */}
               <motion.div
-               initial={{ opacity: 0, scale: 0.8 }}
+               initial={isMounted ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
                animate={{ opacity: 1, scale: 1 }}
                transition={{ duration: 0.8 }}
                 className="text-visible"
@@ -165,7 +170,7 @@ export const TerminalFeatures: React.FC = () => {
 
               {/* Execute Button */}
               <motion.div
-               initial={{ opacity: 0, scale: 0.8 }}
+               initial={isMounted ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
                animate={{ opacity: 1, scale: 1 }}
                transition={{ duration: 0.8 }}
                 className="text-center text-visible"
@@ -174,17 +179,17 @@ export const TerminalFeatures: React.FC = () => {
                   onClick={handleAnalyze}
                   disabled={isLoading || files.length === 0}
                   size="lg"
-                  className="terminal-button font-mono text-lg py-4 px-8"
+                  className="terminal-button font-mono text-lg py-4 px-8 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {isLoading ? 'Processing' : './analyze --execute'}
+                  {isLoading ? 'Processing' : 'View Analysis Results'}
                 </Button>
               </motion.div>
             </div>
 
             {/* Analysis Drawer */}
             <motion.div
-             initial={{ opacity: 0, scale: 0.8 }}
+             initial={isMounted ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
              animate={{ opacity: 1, scale: 1 }}
              transition={{ duration: 0.8 }}
               className="text-center"

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Info } from 'lucide-react'
@@ -16,9 +16,15 @@ interface TerminalWindowProps {
 }
 
 export const TerminalWindow: React.FC<TerminalWindowProps> = ({ children }) => {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0 }}
+      initial={isMounted ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8 }}
     >
