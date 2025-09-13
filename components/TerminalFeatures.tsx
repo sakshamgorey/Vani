@@ -182,7 +182,7 @@ export const TerminalFeatures: React.FC = () => {
                   className="terminal-button font-mono text-lg py-4 px-8 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {isLoading ? 'Processing' : 'View Analysis Results'}
+                  {isLoading ? 'Processing' : './analyze --execute'}
                 </Button>
               </motion.div>
             </div>
