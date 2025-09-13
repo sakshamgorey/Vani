@@ -9,12 +9,7 @@ export const metadata: Metadata = {
   title: 'Vani – Writing Style Profiler',
   description: 'Analyze writing style using AI-powered literary analysis',
   icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/terminal-icon.svg', type: 'image/svg+xml' },
-    ],
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: '/favicon.svg',
   },
 }
 
