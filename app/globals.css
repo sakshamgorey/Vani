@@ -146,4 +146,18 @@
   .sheet-overlay-smooth {
     transition: opacity 0.2s ease-out;
   }
+  
+  /* Ensure sheet content can scroll properly */
+  [data-radix-dialog-content] {
+    max-height: 100vh !important;
+    overflow: hidden !important;
+  }
+  
+  /* Fix for sheet scrolling on mobile */
+  @media (max-width: 640px) {
+    [data-radix-dialog-content] {
+      max-height: 100vh !important;
+      height: 100vh !important;
+    }
+  }
 }

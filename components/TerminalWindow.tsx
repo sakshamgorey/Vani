@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Info } from 'lucide-react'
 import {
   Sheet,
@@ -11,6 +12,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { motion } from 'framer-motion'
+
 interface TerminalWindowProps {
   children: React.ReactNode
 }
@@ -71,14 +73,15 @@ export const TerminalWindow: React.FC<TerminalWindowProps> = ({ children }) => {
               <span className="sr-only">Show site information</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[400px] sm:w-[540px]">
-            <SheetHeader>
+          <SheetContent side="right" className="w-full sm:w-[400px] md:w-[540px] flex flex-col max-h-screen p-0">
+            <SheetHeader className="flex-shrink-0 p-6 pb-0">
               <SheetTitle>About Vani</SheetTitle>
               <SheetDescription>
                 Writing Style Profiler - AI-powered literary analysis tool
               </SheetDescription>
             </SheetHeader>
-            <div className="grid gap-6 py-6">
+            <ScrollArea className="flex-1 px-6">
+              <div className="grid gap-6 py-6">
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">What is Vani?</h3>
                 <p className="text-sm text-muted-foreground">
@@ -126,22 +129,23 @@ export const TerminalWindow: React.FC<TerminalWindowProps> = ({ children }) => {
                   <p>Built with Next.js 14, TypeScript, Tailwind CSS, and Google Gemini AI</p>
                 </div>
               </div>
-            </div>
-            <footer className=" backdrop-blur-sm py-4 sm:py-6 mt-8">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center text-xs sm:text-sm text-muted-foreground">
-                Built by{' '}
-                <a 
-                  href="https://github.com/sakshamgorey" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="font-medium text-foreground hover:text-muted-foreground transition-colors"
-                >
-                  Saksham Gorey
-                </a>
               </div>
-            </div>
-          </footer>
+              <footer className="backdrop-blur-sm py-4 sm:py-6 mt-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center text-xs sm:text-sm text-muted-foreground">
+                    Built by{' '}
+                    <a 
+                      href="https://github.com/sakshamgorey" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="font-medium text-foreground hover:text-muted-foreground transition-colors"
+                    >
+                      Saksham Gorey
+                    </a>
+                  </div>
+                </div>
+              </footer>
+            </ScrollArea>
           </SheetContent>
         </Sheet>
       </div>

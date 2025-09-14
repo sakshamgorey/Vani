@@ -60,7 +60,7 @@ export const AnalysisDrawer: React.FC<AnalysisDrawerProps> = ({
           View Analysis Results
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="terminal-drawer bg-card border-border shadow-3xl h-[75vh] min-h-[600px]">
+      <DrawerContent className="terminal-drawer bg-card border-border shadow-3xl h-[85vh] sm:h-[75vh] min-h-[500px] sm:min-h-[600px]">
         {/* Terminal Title Bar */}
         <div className="bg-muted/50 flex items-center px-4 py-2 border-b border-border mt-3">
           {/* Traffic Light Buttons */}
@@ -95,13 +95,13 @@ export const AnalysisDrawer: React.FC<AnalysisDrawerProps> = ({
         </DrawerHeader>
 
         {result && (
-          <div className="px-4 pb-4 flex-1 overflow-hidden">
+          <div className="px-2 sm:px-4 pb-4 flex-1 overflow-hidden">
             {/* Syntax-Highlighted JSON Output */}
             <Card className="bg-muted/20 backdrop-blur-sm border-border overflow-hidden h-full">
               <CardContent className="p-0 h-full">
                 <ScrollArea className="h-full w-full">
-                  <div className="p-4 sm:p-6">
-                    <pre className="bg-transparent border-0 font-mono text-xs sm:text-sm resize-none text-foreground focus:outline-none">
+                  <div className="p-2 sm:p-4 md:p-6">
+                    <pre className="bg-transparent border-0 font-mono text-xs sm:text-sm resize-none text-foreground focus:outline-none overflow-x-auto whitespace-pre">
                       <code className="language-json">
                         {JSON.stringify(result, null, 2)
                           .split('\n')

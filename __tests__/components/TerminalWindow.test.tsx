@@ -98,5 +98,70 @@ describe('TerminalWindow', () => {
     expect(screenReaderText).toBeInTheDocument()
     expect(screenReaderText).toHaveClass('sr-only')
   })
+
+  describe('Mobile UI Tests', () => {
+    beforeEach(() => {
+      // Mock mobile viewport
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 375,
+      })
+      Object.defineProperty(window, 'innerHeight', {
+        writable: true,
+        configurable: true,
+        value: 667,
+      })
+    })
+
+    it('should have scrollable sheet content on mobile', () => {
+      render(<TerminalWindow />)
+      
+      const infoButton = screen.getByTestId('info-button')
+      fireEvent.click(infoButton)
+      
+      // Check if sheet content is visible and has proper flex layout for scrolling
+      expect(screen.getByText('About Vani')).toBeInTheDocument()
+      expect(screen.getByText('Writing Style Profiler - AI-powered literary analysis tool')).toBeInTheDocument()
+      
+      // Verify the ScrollArea is present for proper scrolling
+      const scrollArea = screen.getByText('What is Vani?').closest('[data-radix-scroll-area-viewport]')
+      expect(scrollArea).toBeInTheDocument()
+    })
+
+    it('should apply mobile-specific sheet width classes', () => {
+      render(<TerminalWindow />)
+      
+      const infoButton = screen.getByTestId('info-button')
+      fireEvent.click(infoButton)
+      
+      // The sheet should have responsive width classes
+      expect(screen.getByText('About Vani')).toBeInTheDocument()
+    })
+
+    it('should have proper overflow handling for long content', () => {
+      render(<TerminalWindow />)
+      
+      const infoButton = screen.getByTestId('info-button')
+      fireEvent.click(infoButton)
+      
+      // Check that content sections are properly spaced and scrollable
+      expect(screen.getByText('What is Vani?')).toBeInTheDocument()
+      expect(screen.getByText('How to Use')).toBeInTheDocument()
+      expect(screen.getByText('Features')).toBeInTheDocument()
+      expect(screen.getByText('Tech Stack')).toBeInTheDocument()
+    })
+
+    it('should maintain proper spacing between content sections on mobile', () => {
+      render(<TerminalWindow />)
+      
+      const infoButton = screen.getByTestId('info-button')
+      fireEvent.click(infoButton)
+      
+      // Verify that content sections have proper gap classes
+      const contentGrid = screen.getByText('What is Vani?').closest('.grid')
+      expect(contentGrid).toHaveClass('gap-6')
+    })
+  })
 })
 

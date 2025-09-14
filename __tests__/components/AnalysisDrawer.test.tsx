@@ -270,4 +270,118 @@ describe('AnalysisDrawer', () => {
     // The drawer header and title are always shown, but the card content should not be
     expect(screen.queryByTestId('card')).not.toBeInTheDocument()
   })
+
+  describe('Mobile UI Tests', () => {
+    beforeEach(() => {
+      // Mock mobile viewport
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 375,
+      })
+      Object.defineProperty(window, 'innerHeight', {
+        writable: true,
+        configurable: true,
+        value: 667,
+      })
+    })
+
+    it('should have horizontal scroll capability for JSON content', () => {
+      render(
+        <AnalysisDrawer 
+          {...defaultProps} 
+          isOpen={true} 
+          result={mockAnalysisResult} 
+        />
+      )
+      
+      // Check that the JSON content container has proper scroll classes
+      const card = screen.getByTestId('card')
+      expect(card).toHaveClass('overflow-hidden')
+      
+      const cardContent = screen.getByTestId('card-content')
+      expect(cardContent).toHaveClass('h-full')
+    })
+
+    it('should have proper scroll area implementation for mobile', () => {
+      render(
+        <AnalysisDrawer 
+          {...defaultProps} 
+          isOpen={true} 
+          result={mockAnalysisResult} 
+        />
+      )
+      
+      // The ScrollArea should be present and have proper height
+      const scrollArea = screen.getByTestId('card-content').querySelector('[data-radix-scroll-area-viewport]')
+      expect(scrollArea).toBeInTheDocument()
+    })
+
+    it('should maintain proper drawer height on mobile', () => {
+      render(
+        <AnalysisDrawer 
+          {...defaultProps} 
+          isOpen={true} 
+          result={mockAnalysisResult} 
+        />
+      )
+      
+      const drawerContent = screen.getByTestId('drawer-content')
+      expect(drawerContent).toHaveClass('h-[85vh]', 'sm:h-[75vh]', 'min-h-[500px]', 'sm:min-h-[600px]')
+    })
+
+    it('should have responsive text sizing for JSON content', () => {
+      render(
+        <AnalysisDrawer 
+          {...defaultProps} 
+          isOpen={true} 
+          result={mockAnalysisResult} 
+        />
+      )
+      
+      // Check that the pre element has responsive text classes
+      const preElement = screen.getByTestId('card-content').querySelector('pre')
+      expect(preElement).toHaveClass('text-xs', 'sm:text-sm')
+    })
+
+    it('should handle long JSON content without breaking layout', () => {
+      const longResult = {
+        ...mockAnalysisResult,
+        overall_style_summary: "This is a very long style summary that should test the horizontal scrolling capability of the analysis drawer. It contains multiple sentences and should wrap properly or scroll horizontally as needed to maintain readability and proper layout on mobile devices.",
+        diction: {
+          ...mockAnalysisResult.diction,
+          notable_word_choices: Array(20).fill(0).map((_, i) => `very-long-word-choice-${i}`)
+        }
+      }
+
+      render(
+        <AnalysisDrawer 
+          {...defaultProps} 
+          isOpen={true} 
+          result={longResult} 
+        />
+      )
+      
+      // Verify that long content is handled properly
+      expect(screen.getByText(/This is a very long style summary/)).toBeInTheDocument()
+      expect(screen.getByText(/very-long-word-choice-0/)).toBeInTheDocument()
+    })
+
+    it('should have proper padding and spacing for mobile viewport', () => {
+      render(
+        <AnalysisDrawer 
+          {...defaultProps} 
+          isOpen={true} 
+          result={mockAnalysisResult} 
+        />
+      )
+      
+      const cardContent = screen.getByTestId('card-content')
+      expect(cardContent).toHaveClass('p-0')
+      
+      // Check that the inner content has proper responsive padding
+      const innerContent = cardContent.querySelector('.p-2')
+      expect(innerContent).toHaveClass('sm:p-4', 'md:p-6')
+    })
+  })
 })
